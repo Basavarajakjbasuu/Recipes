@@ -160,8 +160,8 @@
 \*-----------------------------------*/
 
 *,
-*::after,
-**::before {
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -205,7 +205,7 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-body {
+.body {
   background-color: var(--background);
   color: var(--on-background);
   font-size: var(--fs-body-medium);
@@ -311,3 +311,57 @@ main { flex-grow: 1; }
 /*-----------------------------------*\
   #REUSED STYLE
 \*-----------------------------------*/
+
+.has-state{
+  position: relative;
+  overflow: hidden;
+}
+
+.has-state::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transition: var(--transition-short);
+}
+
+.has-state:where(:hover, :focus-visible):not(:active)::after { background-color: var(--alpha-10); }
+
+/**
+ * Icon Button
+ */
+
+ .icon-btn {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  background-color: var(--primary-container);
+  border-radius: var(--radius-circle);
+}
+
+/**
+ * Button
+ */
+
+.btn {
+  height: 40px;
+  max-width: max-content;
+  padding-inline: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--radius-4);
+  transition: var(--transition-short);
+}
+
+.btn.has-icon {
+  padding-inline-start: 16px;
+}
+
+/* Primary button */
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}

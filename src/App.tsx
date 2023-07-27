@@ -1,19 +1,13 @@
-import { FC, ReactElement } from 'react';
+import { FC, ReactElement, useContext } from 'react';
+import Home from './pages/Home';
+import { ThemeContext } from './context/themeProvider';
 
 const App: FC = (): ReactElement => {
+
+  const { isDarkTheme } = useContext(ThemeContext)
   return (
-    <div>
-      <p className="display-large">Typography</p>
-      <p className="display-medium">Typography</p>
-      <p className="display-small">Typography</p>
-      <p className="headline-small">Typography</p>
-      <p className="title-small">Typography</p>
-      <p className="title-medium">Typography</p>
-      <p className="body-medium">Typography</p>
-      <p className="body-large">Typography</p>
-      <p className="label-large">Typography</p>
-      <p className="label-medium">Typography</p>
-      <p className="label-small">Typography</p>
+    <div className="body" data-theme={isDarkTheme ===  true ? 'dark' : 'light'}>
+    <Home />
     </div>
   )
 }
