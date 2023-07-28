@@ -2,9 +2,13 @@ import { FC, ReactElement, useContext } from 'react';
 
 import './header.css';
 
-import { Moon, Sun, BookMarked } from 'lucide-react';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 
 import { ThemeContext } from '../../context/themeProvider';
+
+import { Link } from 'react-router-dom';
 
 const Header: FC = (): ReactElement => {
 
@@ -12,7 +16,7 @@ const Header: FC = (): ReactElement => {
   return (
     <header className='header'>
 
-      <a href="/">
+      <Link to="/">
         <img
           src="/src/assets/logo-light.svg"
           alt="logo-light"
@@ -28,7 +32,7 @@ const Header: FC = (): ReactElement => {
           height="32" 
           className="logo-dark"
         />
-      </a>
+      </Link>
       
       {/* navbar */}
 
@@ -57,17 +61,17 @@ const Header: FC = (): ReactElement => {
         onClick={toggleTheme}
       >
         <span className="light-icon">
-          <Sun/>
+          <LightModeOutlinedIcon fontSize='large'/>
         </span>
         <span className="dark-icon">
-          <Moon />
+          <DarkModeOutlinedIcon fontSize='large'/>
         </span>
 
       </button>
 
       {/* bookmark */}
       <a href="" className='btn btn-primary has-state'>
-        <BookMarked />
+        <BookOutlinedIcon fontSize='large'/>
         <span className="span">Saved Recipes</span>
       </a>
 

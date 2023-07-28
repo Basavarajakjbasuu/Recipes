@@ -339,6 +339,12 @@ main { flex-grow: 1; }
   border-radius: var(--radius-circle);
 }
 
+.material-symbols-outlined {
+  /* display: block; */
+  width: 1em;
+  height: 1em;
+  overflow: hidden;
+}
 /**
  * Button
  */

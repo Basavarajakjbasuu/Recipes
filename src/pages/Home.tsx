@@ -1,10 +1,11 @@
 import { FC, ReactElement } from 'react'
-import { Header } from '../components'
+import { Header, MobileNav } from '../components'
 
 const Home: FC = (): ReactElement => {
   return (
     <>
       <Header />
+      <MobileNav />
     </>
   )
 }
