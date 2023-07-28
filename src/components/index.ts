@@ -1,10 +1,12 @@
 import Header from "./header/Header";
 import MobileNav from "./mobileNav/MobileNav";
+import Hero from "./hero/Hero";
 
 
 export {
   Header,
-  MobileNav
+  MobileNav,
+  Hero
 }
 
 

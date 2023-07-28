@@ -1,0 +1,67 @@
+/*-----------------------------------*\
+  #HERO
+\*-----------------------------------*/
+
+.hero { padding-inline: 16px; }
+
+.banner-card {
+  background-color: var(--image-background);
+  color: var(--white);
+  background-image: url('../../assets/hero-banner-small.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 480px;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-content: center;
+  text-align: center;
+  padding-inline: 20px;
+  border-radius: var(--radius-8);
+}
+
+.hero .search-wrapper {
+  position: relative;
+  color: var(--on-background);
+  border-radius: var(--radius-4);
+  max-width: 480px;
+  width: 100%;
+  margin-inline: auto;
+  margin-block: 16px 12px;
+  overflow: hidden;
+}
+
+.hero .search-wrapper .leading-icon {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+
+.search-field {
+  height: 56px;
+  background-color: var(--primary-container);
+  padding-inline: 56px;
+  outline: none;
+  color: var(--on-background);
+  font-weight: var(--weight-medium);
+}
+
+.search-submit {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  bottom: 4px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary);
+  color: var(--white);
+  border-radius: var(--radius-4);
+}
+
+.search-submit:where(:hover, :focus-visible):not(:active) {
+  background-color: var(--primary-hover);
+}

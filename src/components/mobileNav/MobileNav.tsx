@@ -103,7 +103,6 @@ const MobileNav: FC = (): ReactElement => {
             )   
           }   
           
-            
           <span className="label-medium">
             Saved
           </span>

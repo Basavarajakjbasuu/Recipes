@@ -340,10 +340,11 @@ main { flex-grow: 1; }
 }
 
 .material-symbols-outlined {
-  /* display: block; */
+  display: block;
   width: 1em;
   height: 1em;
   overflow: hidden;
+  font-size: var(--fs-display-small);
 }
 /**
  * Button
@@ -363,6 +364,17 @@ main { flex-grow: 1; }
 
 .btn.has-icon {
   padding-inline-start: 16px;
+}
+
+.section {
+  margin-block-end: var(--section-gap);
+}
+
+.container {
+  max-width: 1130px;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: 16px;
 }
 
 /* Primary button */
