@@ -1,0 +1,18 @@
+/*-----------------------------------*\
+  #TAB
+\*-----------------------------------*/
+
+.tab .tab-list {
+  background-color: var(--background);
+  position: sticky;
+  top: var(--header-height);
+  margin-inline: -16px;
+  padding-inline: 16px;
+  margin-block: 16px 12px;
+  z-index: 1;
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+

@@ -346,6 +346,7 @@ main { flex-grow: 1; }
   overflow: hidden;
   font-size: var(--fs-display-small);
 }
+
 /**
  * Button
  */
@@ -382,4 +383,36 @@ main { flex-grow: 1; }
 .btn-primary {
   background-color: var(--primary);
   color: var(--white);
+}
+
+/*-----------------------------------*\
+  #COMPONENTS
+\*-----------------------------------*/
+
+/**
+ *  Secondary Tabs
+ */
+
+.tab-list {
+  display: flex;
+  color: var(--on-background-variant);
+  box-shadow: 0 -1px 0 var(--outline);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tab-list::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  height: 48px;
+  min-width: max-content;
+  padding-inline: 24px;
+  border-block-end: 2px solid transparent;
+  transition: var(--transition-short);
+  flex: 1 0 80px;
+}
+
+.tab-btn.active {
+  color: var(--on-background);
+  border-color: var(--primary);
 }

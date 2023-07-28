@@ -1,13 +1,13 @@
 import { FC, ReactElement } from 'react'
-import { Header, Hero, MobileNav } from '../components'
+import { Header, Hero, MobileNav, Tabs } from '../components'
 
 const Home: FC = (): ReactElement => {
   return (
     <>
-      <Header />
       <MobileNav />
       <main>
         <Hero />
+        <Tabs />
       </main>
     </>
   )
