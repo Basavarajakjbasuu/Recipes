@@ -15,7 +15,6 @@ import { Link } from 'react-router-dom';
 
 const MobileNav: FC = (): ReactElement => {
   const [activeLink, setActiveLink] = useState<string>('home');
-  console.log(activeLink)
 
   //setting active link
   const handleNavClick = (link: string)  => {

@@ -1,5 +1,5 @@
 import { FC, ReactElement } from 'react'
-import { Header, Hero, MobileNav, Tabs } from '../components'
+import { Hero, MobileNav, Tabs } from '../components'
 
 const Home: FC = (): ReactElement => {
   return (

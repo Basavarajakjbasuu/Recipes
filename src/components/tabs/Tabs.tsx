@@ -1,7 +1,11 @@
-import  { FC, ReactElement, useState } from 'react';
+import  { FC, ReactElement, useState, useEffect } from 'react';
 import { tabs } from '../constants';
 
+import { useQuery } from '@tanstack/react-query'
+
 import './tabs.css';
+import { fetchData } from '../../api/fetchData';
+import { cardQueries } from '../../api/globals';
 
 const Tabs: FC = (): ReactElement => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -9,6 +13,27 @@ const Tabs: FC = (): ReactElement => {
   const handleTabClick = (tabIndex: number) => {
     setActiveTab(tabIndex);
   };
+
+  const { data, refetch } = useQuery(
+    ['recipes'],
+    async () => {
+      try {
+        const data = await fetchData([['mealType', tabs[activeTab - 1]?.label.trim().toLowerCase() || ''], ...cardQueries]);
+        return data;
+      } catch (error) {
+        throw new Error('Error fetching recipes.');
+      }
+    },
+    {
+      refetchOnWindowFocus: false, // Disable automatic refetch on window focus
+    });
+
+  useEffect(() => {
+    
+    refetch()
+  }, [activeTab, refetch])
+  
+  console.log(data)
 
   return (
     <section className="section tab">
