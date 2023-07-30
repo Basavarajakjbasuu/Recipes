@@ -5,6 +5,7 @@ import Tabs from "./tabs/Tabs";
 import Sliders from "./sliders/Sliders";
 import Slider from "./sliders/Slider";
 import Card from "./card/Card";
+import Tags from "./Tags/Tags";
 
 export {
   Header,
@@ -13,7 +14,8 @@ export {
   Tabs,
   Slider,
   Sliders,
-  Card
+  Card,
+  Tags
 }
 
 
