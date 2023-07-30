@@ -1,0 +1,86 @@
+import { FC, ReactElement } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+import { fetchData } from '../../api/fetchData';
+import { Recipe, RecipeCards } from '../../types';
+import { cardQueries } from '../../api/globals';
+import CardSkeleton from '../skeleton/CardSkeleton';
+import { Card } from '..';
+import { Link } from 'react-router-dom';
+import { NavigateNext } from '@mui/icons-material';
+
+interface SliderProps {
+  title: string;
+}
+const Slider: FC<SliderProps> = ({ title }): ReactElement => {
+  
+  const { data, isLoading } = useQuery(
+    ['cuisine', title],
+    async () => {
+      try {
+        const queryParameters = title ? [['cuisineType', title], ...cardQueries] : cardQueries;
+        const responseData: Recipe | Recipe[] = await fetchData(queryParameters);
+        return responseData;
+      } catch (error) {
+        throw new Error('Error fetching recipes.');
+      }
+    },
+    {
+      refetchOnWindowFocus: false, // Disable automatic refetch on window focus
+    });
+  
+  
+
+  return (
+    <div className="container">
+
+      <h2 className="section-title headline-small">Latest { title } Recipes</h2>
+
+      <div className="slider">
+
+        <ul className="slider-wrapper">
+
+        {isLoading  ? (
+            <>
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+              <CardSkeleton />
+            </>
+          ) : (
+            <>
+              {
+                Array.isArray(data) ?   
+                  data?.map((item: RecipeCards) => (
+                    <li className='slider-item'  key={item?.recipe?.uri}>
+                      <Card
+                      recipe={item?.recipe} 
+                      />
+                    </li>    
+                  )) : ''
+              }
+            </>
+          )}
+
+          <li className="slider-item">
+            <Link to={`/recipes?cuisineType=${title.toLocaleLowerCase()}`} className='load-more-card has-state'>
+              <span className="label-large">Show more</span>
+
+              <span className="material-symbols-outlined">
+                <NavigateNext fontSize='inherit' />
+              </span>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+export default Slider

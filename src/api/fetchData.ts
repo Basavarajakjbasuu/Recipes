@@ -9,7 +9,7 @@ const ACCESS_TYPE = import.meta.env.VITE_EDAMAM_ACESS_TYPE;
 
 
 
-export const fetchData = async (queries: string[][]): Promise<Recipe> => {
+export const fetchData = async (queries: string[][] | ''): Promise<Recipe> => {
   try {
     /**
      * query = mealType=breakfast&field=uri&field=label&field=image&field=totalTime

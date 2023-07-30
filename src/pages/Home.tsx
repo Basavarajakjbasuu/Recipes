@@ -1,5 +1,5 @@
 import { FC, ReactElement } from 'react'
-import { Hero, MobileNav, Tabs } from '../components'
+import { Hero, MobileNav, Sliders, Tabs } from '../components'
 
 const Home: FC = (): ReactElement => {
   return (
@@ -8,6 +8,7 @@ const Home: FC = (): ReactElement => {
       <main>
         <Hero />
         <Tabs />
+        <Sliders />
       </main>
     </>
   )

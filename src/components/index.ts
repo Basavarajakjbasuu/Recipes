@@ -2,13 +2,18 @@ import Header from "./header/Header";
 import MobileNav from "./mobileNav/MobileNav";
 import Hero from "./hero/Hero";
 import Tabs from "./tabs/Tabs";
-
+import Sliders from "./sliders/Sliders";
+import Slider from "./sliders/Slider";
+import Card from "./card/Card";
 
 export {
   Header,
   MobileNav,
   Hero,
-  Tabs
+  Tabs,
+  Slider,
+  Sliders,
+  Card
 }
 
 

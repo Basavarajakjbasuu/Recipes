@@ -1,15 +1,19 @@
 import  { FC, ReactElement, useState, useEffect } from 'react';
 import { tabs } from '../constants';
 
-import { useQuery } from '@tanstack/react-query'
-
 import './tabs.css';
+
+import { Card } from '..';
+import CardSkeleton from '../skeleton/CardSkeleton';
+
+import { useQuery } from '@tanstack/react-query'
 import { fetchData } from '../../api/fetchData';
 import { cardQueries } from '../../api/globals';
-import Card from '../card/Card';
-import CardSkeleton from '../skeleton/CardSkeleton';
-import { Recipe, RecipeCards } from '../../types';
+
 import { Link } from 'react-router-dom';
+
+import { Recipe, RecipeCards } from '../../types';
+
 
 const Tabs: FC = (): ReactElement => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -18,12 +22,13 @@ const Tabs: FC = (): ReactElement => {
     setActiveTab(tabIndex);
   };
 
-  const currentTab = tabs[activeTab - 1]?.label.trim().toLowerCase();
+  //fetching data with help of React-Query
+  const currentTabLabel = tabs[activeTab - 1]?.label.trim().toLowerCase();
   const { data, refetch, isLoading, isRefetching } = useQuery(
     ['recipes'],
     async () => {
       try {
-        const responseData: Recipe | Recipe[] = await fetchData([['mealType', currentTab || ''], ...cardQueries]);
+        const responseData: Recipe | Recipe[] = await fetchData([['mealType', currentTabLabel || ''], ...cardQueries]);
         return responseData;
       } catch (error) {
         throw new Error('Error fetching recipes.');
@@ -34,7 +39,6 @@ const Tabs: FC = (): ReactElement => {
     });
 
   useEffect(() => {
-    
     refetch()
   }, [activeTab, refetch]);
 
@@ -105,7 +109,7 @@ const Tabs: FC = (): ReactElement => {
           </div>
         ))}
 
-        <Link to={`/recipes?mealType=${currentTab}`} className='btn btn-secondary label-large has-state'>
+        <Link to={`/recipes?mealType=${currentTabLabel}`} className='btn btn-secondary label-large has-state'>
           Show more
         </Link>
       </div>
@@ -114,4 +118,4 @@ const Tabs: FC = (): ReactElement => {
   );
 }
 
-export default Tabs
+export default Tabs;

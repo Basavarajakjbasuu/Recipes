@@ -77,9 +77,9 @@ const Card: FC<ICardProps> = ({ recipe }): ReactElement => {
           onClick={saveRecipe}  
         >
           {isSaved ? 
-              (<span className="bookmark-add"><BookmarkAdd fontSize='large' /></span>) 
-              :
-              (<span className="bookmark-add"><BookmarkAddOutlined fontSize='large' /></span>)
+            (<span className="bookmark-add"><BookmarkAdd fontSize='large' /></span>) 
+            :
+            (<span className="bookmark-add"><BookmarkAddOutlined fontSize='large' /></span>)
           }    
         </button>
           
