@@ -6,6 +6,10 @@ import { useQuery } from '@tanstack/react-query'
 import './tabs.css';
 import { fetchData } from '../../api/fetchData';
 import { cardQueries } from '../../api/globals';
+import Card from '../card/Card';
+import CardSkeleton from '../skeleton/CardSkeleton';
+import { Recipe, RecipeCards } from '../../types';
+import { Link } from 'react-router-dom';
 
 const Tabs: FC = (): ReactElement => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -14,12 +18,13 @@ const Tabs: FC = (): ReactElement => {
     setActiveTab(tabIndex);
   };
 
-  const { data, refetch } = useQuery(
+  const currentTab = tabs[activeTab - 1]?.label.trim().toLowerCase();
+  const { data, refetch, isLoading, isRefetching } = useQuery(
     ['recipes'],
     async () => {
       try {
-        const data = await fetchData([['mealType', tabs[activeTab - 1]?.label.trim().toLowerCase() || ''], ...cardQueries]);
-        return data;
+        const responseData: Recipe | Recipe[] = await fetchData([['mealType', currentTab || ''], ...cardQueries]);
+        return responseData;
       } catch (error) {
         throw new Error('Error fetching recipes.');
       }
@@ -31,10 +36,9 @@ const Tabs: FC = (): ReactElement => {
   useEffect(() => {
     
     refetch()
-  }, [activeTab, refetch])
-  
-  console.log(data)
+  }, [activeTab, refetch]);
 
+  const tenFoodItems = Array.isArray(data) ? data.slice(0, 10) : [data];
   return (
     <section className="section tab">
 
@@ -48,13 +52,12 @@ const Tabs: FC = (): ReactElement => {
           {tabs.map((tab) => (
             <button
               key={tab.id}
-              className={`tab-btn title-small  ${activeTab === tab.id ? 'active' : ''}`}
+              className={`tab-btn has-state title-small  ${activeTab === tab.id ? 'active' : ''}`}
               role="tab"
               id={`tab-${tab.id}`}
               tabIndex={activeTab === tab.id ? 0 : -1}
               aria-controls={`panel-${tab.id}`}
               aria-selected={activeTab === tab.id ? 'true' : 'false'}
-              data-tab-btn
               onClick={() => handleTabClick(tab.id)}
             >
               {tab.label}
@@ -70,13 +73,41 @@ const Tabs: FC = (): ReactElement => {
             id={`panel-${tab.id}`}
             aria-labelledby={`tab-${tab.id}`}
             tabIndex= {0}
-            data-tab-panel
             hidden={activeTab !== tab.id}
           >
-            {tab.content}
+            <div className="grid-list">
+              {isLoading || isRefetching ? (
+                  <>
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                    <CardSkeleton />
+                  </>
+                ) : (
+                  <>
+                    {
+                      tenFoodItems?.map((item: RecipeCards) => (
+                        <Card
+                        key={item?.recipe?.uri}
+                        recipe={item?.recipe} 
+                        />
+                      ))
+                    }
+                  </>
+                )}
+            </div>
           </div>
         ))}
 
+        <Link to={`/recipes?mealType=${currentTab}`} className='btn btn-secondary label-large has-state'>
+          Show more
+        </Link>
       </div>
 
     </section>
