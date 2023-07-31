@@ -8,6 +8,12 @@ import Card from "./card/Card";
 import Tags from "./Tags/Tags";
 import Footer from "./footer/Footer";
 
+import Filter from "./filter/Filter";
+import AccordionContainer from "./filter/AccordionContainer";
+import Accordions from "./filter/Accordions";
+import AccordionButton from "./filter/AccordionButton";
+import FilterChip from "./filter/FilterChip";
+
 export {
   Header,
   MobileNav,
@@ -17,7 +23,13 @@ export {
   Sliders,
   Card,
   Tags,
-  Footer
+  Footer,
+
+  Filter,
+  AccordionContainer,
+  Accordions,
+  AccordionButton,
+  FilterChip
 }
 
 

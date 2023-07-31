@@ -1,10 +1,13 @@
 import { FC, ReactElement } from 'react'
-import { MobileNav } from '../components'
+import { Filter, MobileNav } from '../components'
 
 const Recipes: FC = (): ReactElement => {
   return (
     <div>
       <MobileNav />
+      <main>
+        <Filter />
+      </main>
     </div>
   )
 }
