@@ -1,7 +1,11 @@
 import { FC, ReactElement} from 'react'
 
-const CardSkeleton: FC = (): ReactElement => {
-  return (
+interface SkeletonProp {
+  type: string
+}
+const CardSkeleton: FC<SkeletonProp> = ({type}): ReactElement => {
+
+  const CardSkeleton = () => (
     <div className="card skeleton-card">
 
       <div className="skeleton card-banner"></div>
@@ -15,6 +19,12 @@ const CardSkeleton: FC = (): ReactElement => {
 
     </div>
   )
+  if (type === 'card') {
+    const skeleton = Array(12).fill(true).map((_, i) => <CardSkeleton key={i} />);
+    return <>{skeleton}</>;
+  }
+
+  return <></>
 }
 
 export default CardSkeleton

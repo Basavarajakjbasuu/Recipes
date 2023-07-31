@@ -22,12 +22,15 @@ const Tabs: FC = (): ReactElement => {
     setActiveTab(tabIndex);
   };
 
+  //load skeleton for two seconds
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   //fetching data with help of React-Query
   const currentTabLabel = tabs[activeTab - 1]?.label.trim().toLowerCase();
   const { data, refetch, isLoading, isRefetching } = useQuery(
     ['recipes'],
     async () => {
       try {
+        wait(2000);
         const responseData: Recipe | Recipe[] = await fetchData([['mealType', currentTabLabel || ''], ...cardQueries]);
         return responseData;
       } catch (error) {
@@ -82,16 +85,8 @@ const Tabs: FC = (): ReactElement => {
             <div className="grid-list">
               {isLoading || isRefetching ? (
                   <>
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
-                    <CardSkeleton />
+                    <CardSkeleton type='card' />
+                    
                   </>
                 ) : (
                   <>

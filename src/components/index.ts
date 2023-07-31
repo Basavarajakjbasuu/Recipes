@@ -6,6 +6,7 @@ import Sliders from "./sliders/Sliders";
 import Slider from "./sliders/Slider";
 import Card from "./card/Card";
 import Tags from "./Tags/Tags";
+import Footer from "./footer/Footer";
 
 export {
   Header,
@@ -15,7 +16,8 @@ export {
   Slider,
   Sliders,
   Card,
-  Tags
+  Tags,
+  Footer
 }
 
 

@@ -2,23 +2,30 @@ import { FC, ReactElement } from 'react';
 
 import { useQuery } from '@tanstack/react-query';
 import { fetchData } from '../../api/fetchData';
+
 import { Recipe, RecipeCards } from '../../types';
 import { cardQueries } from '../../api/globals';
-import CardSkeleton from '../skeleton/CardSkeleton';
+
 import { Card } from '..';
+
 import { Link } from 'react-router-dom';
 import { NavigateNext } from '@mui/icons-material';
+
+import SliderSkeleton from '../skeleton/SliderSkeleton';
 
 interface SliderProps {
   title: string;
 }
 const Slider: FC<SliderProps> = ({ title }): ReactElement => {
   
+  //load skeleton for two seconds
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
   const { data, isLoading } = useQuery(
     ['cuisine', title],
     async () => {
       try {
         const queryParameters = title ? [['cuisineType', title], ...cardQueries] : cardQueries;
+        await wait(2000);
         const responseData: Recipe | Recipe[] = await fetchData(queryParameters);
         return responseData;
       } catch (error) {
@@ -40,18 +47,15 @@ const Slider: FC<SliderProps> = ({ title }): ReactElement => {
 
         <ul className="slider-wrapper">
 
-        {isLoading  ? (
+          {isLoading ? (
             <>
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
-              <CardSkeleton />
+            {
+              Array(12).fill(true).map((_, i) => (
+                <li className="slider-item">
+                  <SliderSkeleton key={i} />
+                </li>  
+              ))
+            }
             </>
           ) : (
             <>
