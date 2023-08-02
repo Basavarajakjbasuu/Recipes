@@ -698,4 +698,9 @@ main { flex-grow: 1; }
   min-width: 16px;
   padding-inline: 4px;
   border-radius: var(--radius-pill);
+  display: none;
+}
+
+.badge.active {
+  display: block;
 }

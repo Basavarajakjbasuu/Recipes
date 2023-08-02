@@ -6,9 +6,15 @@ interface FilterChipProps {
   name: string;
   value: string;
   ariaLabel: string;
+  isSelected: boolean; 
+  onChange: (selectedFilters: { value: string, name: string }[]) => void; 
 }
 
-const FilterChip: FC<FilterChipProps> = ({labelName, type, ariaLabel, name, value}): ReactElement => {
+const FilterChip: FC<FilterChipProps> = ({ labelName, type, ariaLabel, name, value, isSelected, onChange }): ReactElement => {
+ 
+  const handleChipChange = () => {
+    onChange(isSelected ? [] : [{ value, name }]);
+  };
   return (
     <label className="filter-chip label-large">
         {labelName}
@@ -17,6 +23,8 @@ const FilterChip: FC<FilterChipProps> = ({labelName, type, ariaLabel, name, valu
         name={name} 
         value={value}
         aria-label={ariaLabel}
+        checked={isSelected}
+        onChange={handleChipChange}
         className="checkbox"
       />
     </label>

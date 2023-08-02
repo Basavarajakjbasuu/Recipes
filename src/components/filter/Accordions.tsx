@@ -3,10 +3,15 @@ import { FC, ReactElement, useState } from 'react';
 import { TimerOutlined, SpaOutlined, RestaurantOutlined, FastfoodOutlined, PublicOutlined } from '@mui/icons-material';
 import EmojiFoodBeverageOutlinedIcon from '@mui/icons-material/EmojiFoodBeverageOutlined';
 import FitnessCenterOutlinedIcon from '@mui/icons-material/FitnessCenterOutlined';
-import { CaloriesConstants, CuisineConstants, DietConstants, HealthConstants, IngredientsConstants, MealConstants, TimeConstants } from '../constants';
+import { CaloriesConstants, CuisineConstants, DietConstants, DishConstants, HealthConstants, IngredientsConstants, MealConstants, TimeConstants } from '../constants';
 import { AccordionContainer } from '..';
 
-const Accordions: FC = (): ReactElement => {
+interface AccordionsProps {
+  selectedFilters: { value: string, name: string }[];
+  onChange: (selectedFilters: { value: string, name: string }[]) => void;
+}
+
+const Accordions: FC<AccordionsProps> = ({selectedFilters, onChange}): ReactElement => {
 
   const [expandedAccordion, setExpandedAccordion] = useState<number | null>(null);
 
@@ -18,6 +23,7 @@ const Accordions: FC = (): ReactElement => {
     }
   };
 
+
   return (
     <>
 
@@ -27,6 +33,8 @@ const Accordions: FC = (): ReactElement => {
         filterChips={TimeConstants}
         isExpanded={expandedAccordion === 0}
         onClick={() => handleAccordionClick(0)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       />     
       
       <AccordionContainer
@@ -35,6 +43,8 @@ const Accordions: FC = (): ReactElement => {
         filterChips={IngredientsConstants}
         isExpanded={expandedAccordion === 1}
         onClick={() => handleAccordionClick(1)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       />   
       
       <AccordionContainer
@@ -43,6 +53,8 @@ const Accordions: FC = (): ReactElement => {
         filterChips={CaloriesConstants}
         isExpanded={expandedAccordion === 2}
         onClick={() => handleAccordionClick(2)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       />
 
       <AccordionContainer
@@ -51,6 +63,8 @@ const Accordions: FC = (): ReactElement => {
         filterChips={DietConstants}
         isExpanded={expandedAccordion === 3}
         onClick={() => handleAccordionClick(3)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       /> 
 
       <AccordionContainer
@@ -59,6 +73,8 @@ const Accordions: FC = (): ReactElement => {
         filterChips={HealthConstants}
         isExpanded={expandedAccordion === 4}
         onClick={() => handleAccordionClick(4)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       /> 
 
       <AccordionContainer
@@ -67,14 +83,18 @@ const Accordions: FC = (): ReactElement => {
         filterChips={MealConstants}
         isExpanded={expandedAccordion === 5}
         onClick={() => handleAccordionClick(5)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       /> 
 
       <AccordionContainer
         icon={FastfoodOutlined}
         title='Dish'
-        filterChips={MealConstants}
+        filterChips={DishConstants}
         isExpanded={expandedAccordion === 6}
         onClick={() => handleAccordionClick(6)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       /> 
 
       <AccordionContainer
@@ -83,6 +103,8 @@ const Accordions: FC = (): ReactElement => {
         filterChips={CuisineConstants}
         isExpanded={expandedAccordion === 7}
         onClick={() => handleAccordionClick(7)}
+        selectedFilters={selectedFilters}
+        onChange={onChange}
       /> 
     </>
   )

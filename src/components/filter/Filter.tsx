@@ -9,7 +9,9 @@ const Filter: FC = (): ReactElement => {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
 
   const [searchValue, setSearchValue] = useState<string>('');
-  const [selectedFilters, setSelectedFilters] = useState<any[]>();
+  const [selectedFilters, setSelectedFilters] = useState<{ value: string, name: string }[]>([]);
+
+  const [queryString, setQueryString] = useState<string>()
 
   //Toggle filter in mobile and tablet devices
   const filterRef = useRef<HTMLDivElement>(null);
@@ -36,7 +38,44 @@ const Filter: FC = (): ReactElement => {
     };
   }, [isFilterOpen]);
 
-  // adding search functionality
+  // adding search functionality and filters also
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
+  }
+
+  const handleFilterChange = (selectedFilters: { value: string, name: string }[]) => {
+    setSelectedFilters(selectedFilters);
+  }
+
+  const handleClearFilters = () => {
+    setSelectedFilters([]);
+    setIsFilterOpen(false);
+  };
+  
+  const handleApplyFilters = () => {
+    // Perform the search operation using searchValue and selectedFilters.
+    const queries: [string, string][] = [];
+
+    if (searchValue.length) {
+      queries.push(['q', searchValue.toLowerCase()]);
+    }
+
+    for (const item of selectedFilters) {
+      queries.push([item.name, item.value]);
+    }
+    
+    const queryParam = queries.length ? `?${queries.join("&").replace(/,/g, "=")}` : "";
+
+    setQueryString(queryParam);
+    setIsFilterOpen(false);
+  };
+
+
+  // Get number of quires
+  const queryStr = queryString?.slice(1);
+  const numOfQueries = queryStr && queryStr.split("&").map(i => i.split("=")).length;
+ 
   return (
     <article className="article recipe-page">
 
@@ -71,18 +110,31 @@ const Filter: FC = (): ReactElement => {
                 id='search'
                 className='input-field'
                 placeholder='Search  recipes'
+                value={searchValue}
+                onChange={handleSearchChange}
               />
 
             </div>
           </div>
           
-          <Accordions />
+          <Accordions
+            onChange={handleFilterChange}
+            selectedFilters={selectedFilters}
+          />
 
           <div className="filter-actions">
 
-            <button className="btn btn-secondary label-large has-state" data-filter-clear>Clear</button>
+            <button 
+              className="btn btn-secondary label-large has-state"
+              onClick={handleClearFilters}
+            >
+              Clear
+            </button>
 
-            <button className="btn btn-primary label-large" data-filter-submit>Apply</button>
+            <button
+              className="btn btn-primary label-large"
+              onClick={handleApplyFilters}
+            >Apply</button>
 
           </div>
         </div>
@@ -106,7 +158,9 @@ const Filter: FC = (): ReactElement => {
               <div className="wrapper">
                 <span className="label-large">Filters</span>
 
-                <div className="badge label-small" data-filter-count>5</div>
+                <div className={`badge label-small ${numOfQueries ? 'active' : ''}`}>
+                  {numOfQueries}
+                </div>
               </div>
             </button>
           </div>
