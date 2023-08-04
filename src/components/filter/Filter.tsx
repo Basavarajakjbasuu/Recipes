@@ -3,7 +3,15 @@ import { CloseOutlined, FilterListOutlined } from '@mui/icons-material';
 import './Filter.css';
 
 import { FC, ReactElement, useRef,useEffect, useState } from 'react'
-import { Accordions } from '..'
+import { Accordions, Card } from '..'
+
+import { useQuery } from '@tanstack/react-query';
+import { defaultQuires } from '../../api/globals';
+import { fetchData } from '../../api/fetchData';
+
+import { Recipe, RecipeCards } from '../../types';
+import CardSkeleton from '../skeleton/CardSkeleton';
+import { useSearchParams } from 'react-router-dom';
 
 const Filter: FC = (): ReactElement => {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -11,7 +19,10 @@ const Filter: FC = (): ReactElement => {
   const [searchValue, setSearchValue] = useState<string>('');
   const [selectedFilters, setSelectedFilters] = useState<{ value: string, name: string }[]>([]);
 
-  const [queryString, setQueryString] = useState<string>()
+  const [queryString, setQueryString] = useState<string>();
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
 
   //Toggle filter in mobile and tablet devices
   const filterRef = useRef<HTMLDivElement>(null);
@@ -50,32 +61,61 @@ const Filter: FC = (): ReactElement => {
 
   const handleClearFilters = () => {
     setSelectedFilters([]);
-    setIsFilterOpen(false);
+    setSearchValue('')
   };
   
   const handleApplyFilters = () => {
     // Perform the search operation using searchValue and selectedFilters.
-    const queries: [string, string][] = [];
+    const params = new URLSearchParams();
 
     if (searchValue.length) {
-      queries.push(['q', searchValue.toLowerCase()]);
+      params.append('q', searchValue.toLowerCase());
     }
 
     for (const item of selectedFilters) {
-      queries.push([item.name, item.value]);
+      params.append(item.name, item.value);
     }
-    
-    const queryParam = queries.length ? `?${queries.join("&").replace(/,/g, "=")}` : "";
 
-    setQueryString(queryParam);
+    setQueryString(params.toString());
+    setSearchParams(params.toString());
     setIsFilterOpen(false);
   };
 
-
   // Get number of quires
   const queryStr = queryString?.slice(1);
-  const numOfQueries = queryStr && queryStr.split("&").map(i => i.split("=")).length;
+  const numOfQueries = queryStr ? queryStr.split('&').map((i) => i.split('='))?.length : 0;
+
+  //load skeleton for two seconds
+  const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+
+
+  const { data, isLoading } = useQuery(
+    ['QueryRecipes', queryString],
+    async () => {
+      if (!searchParams) {
+        // Fetch data with the default query if there are no search or filter parameters
+        try {
+          wait(2000);
+          const responseData: Recipe | Recipe[] = await fetchData(defaultQuires);
+          return responseData;
+        } catch (error) {
+          throw new Error('Error fetching recipes with default query.');
+        }
+      }
+
+      try {
+        wait(2000);
+        const responseData: Recipe | Recipe[] = await fetchData(searchParams.toString());
+        return responseData;
+      } catch (error) {
+        throw new Error('Error fetching recipes.');
+      }
+    },
+    { enabled: true } // Always enable the query to run even without queryString
+  );
  
+
   return (
     <article className="article recipe-page">
 
@@ -165,7 +205,25 @@ const Filter: FC = (): ReactElement => {
             </button>
           </div>
 
-          <div className="grid-list" data-grid-list></div>
+          <div className="grid-list" data-grid-list>
+          {isLoading  ? (
+            <>
+              <CardSkeleton type='card' />
+            </>
+            ) : (
+              <>
+                {
+                  data?.map((item: RecipeCards) => (
+                    <Card
+                    key={item?.recipe?.uri}
+                    recipe={item?.recipe} 
+                    />
+                  ))
+                }
+              </>
+            )
+          }
+          </div>
 
           <div className="load-more grid-list" data-load-more></div>
 

@@ -9,11 +9,10 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import Recipes from './pages/Recipes';
 import Saved from './pages/Saved';
 
-
 const Layout = () => (
   <div>
     <Header />
-    <Outlet />
+      <Outlet />
     <Footer />
   </div>
 ) 
@@ -28,11 +27,11 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/recipes',
-        element: <Recipes />
+        path: 'recipes',
+        element: <Recipes />,
       },
       {
-        path: '/saved',
+        path: 'saved',
         element: <Saved />
       },
     ]

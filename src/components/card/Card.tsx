@@ -7,6 +7,8 @@ import ScheduleIcon from '@mui/icons-material/ScheduleOutlined';
 import { BookmarkAdd, BookmarkAddOutlined } from '@mui/icons-material';
 import { getTime } from '../utils/utils';
 
+import img1 from '../../assets/image-placeholder.svg';
+
 interface ICardProps  {
   recipe: ({
     image: string;
@@ -47,7 +49,7 @@ const Card: FC<ICardProps> = ({ recipe }): ReactElement => {
     <div className="card">
       <figure className="card-media img-holder">
         <img
-          src={image}
+          src={image ? image : img1}
           alt={label}
           height='200'
           loading='lazy'

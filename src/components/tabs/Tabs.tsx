@@ -99,7 +99,8 @@ const Tabs: FC = (): ReactElement => {
                       ))
                     }
                   </>
-                )}
+                )
+              }
             </div>
           </div>
         ))}
