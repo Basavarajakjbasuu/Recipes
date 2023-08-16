@@ -12,7 +12,7 @@ import { cardQueries } from '../../api/globals';
 
 import { Link } from 'react-router-dom';
 
-import { Recipe, RecipeCards } from '../../types';
+import { Recipe,  } from '../../types';
 
 
 const Tabs: FC = (): ReactElement => {
@@ -91,7 +91,7 @@ const Tabs: FC = (): ReactElement => {
                 ) : (
                   <>
                     {
-                      tenFoodItems?.map((item: RecipeCards) => (
+                      tenFoodItems?.map((item) => (
                         <Card
                         key={item?.recipe?.uri}
                         recipe={item?.recipe} 
