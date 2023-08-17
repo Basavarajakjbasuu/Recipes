@@ -12,8 +12,6 @@ import { cardQueries } from '../../api/globals';
 
 import { Link } from 'react-router-dom';
 
-import { Recipe,  } from '../../types';
-
 
 const Tabs: FC = (): ReactElement => {
   const [activeTab, setActiveTab] = useState<number>(1);
@@ -31,7 +29,7 @@ const Tabs: FC = (): ReactElement => {
     async () => {
       try {
         wait(2000);
-        const responseData: Recipe | Recipe[] = await fetchData([['mealType', currentTabLabel || ''], ...cardQueries]);
+        const responseData = await fetchData([['mealType', currentTabLabel || ''], ...cardQueries]);
         return responseData;
       } catch (error) {
         throw new Error('Error fetching recipes.');
@@ -45,7 +43,7 @@ const Tabs: FC = (): ReactElement => {
     refetch()
   }, [activeTab, refetch]);
 
-  const tenFoodItems = Array.isArray(data) ? data.slice(0, 10) : [data];
+  const foodItems = Array.isArray(data) ? data.slice(0, 12) : [data];
   return (
     <section className="section tab">
 
@@ -91,11 +89,13 @@ const Tabs: FC = (): ReactElement => {
                 ) : (
                   <>
                     {
-                      tenFoodItems?.map((item) => (
-                        <Card
-                        key={item?.recipe?.uri}
-                        recipe={item?.recipe} 
-                        />
+                      foodItems?.map((item) => (
+                        item?.recipe && (
+                          <Card
+                            key={item?.recipe?.uri}
+                            recipe={item?.recipe} 
+                          />
+                        )
                       ))
                     }
                   </>

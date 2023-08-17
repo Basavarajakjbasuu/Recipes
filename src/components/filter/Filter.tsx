@@ -75,44 +75,36 @@ const Filter: FC = (): ReactElement => {
 
     setSearchParams(params.toString());
     setIsFilterOpen(false);
+
   };
 
   // Get number of quires
   const queryStr = searchParams.toString()?.slice(1);
   const numOfQueries = queryStr ? queryStr.split('&').map((i) => i.split('='))?.length : 0;
 
-  // const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
- 
-  // const { data, isLoading } = useQuery(
-  //   ['QueryRecipes'],
-  //   async () => {
-  //     if (!searchParams) {
-  //       // Fetch data with the default query if there are no search or filter parameters
-  //       try {
-  //         wait(2000);
-  //         const responseData: Recipe | Recipe[] = await fetchData(defaultQuires);
-  //         return responseData;
-  //       } catch (error) {
-  //         throw new Error('Error fetching recipes with default query.');
-  //       }
-  //     }
-
-  //     try {
-  //       wait(2000);
-  //       const responseData: Recipe | Recipe[] = await fetchData(searchParams.toString());
-  //       return responseData;
-  //     } catch (error) {
-  //       throw new Error('Error fetching recipes.');
-  //     }
-  //   },
-  //   { enabled: true } // Always enable the query to run even without queryString
-  // );
-
-  const {fetchNextPage, isFetchingNextPage, hasNextPage, data, isLoading } = useInfiniteQuery({
-    queryKey: ['infinite-recipe'],
+  const {
+    fetchNextPage,
+    isFetchingNextPage,
+    hasNextPage,
+    data,
+    isLoading
+  } = useInfiniteQuery({
+    queryKey: ['infinite-recipe', searchParams.toString()],
     queryFn: ({ pageParam = searchParams.toString() }) => fetchInfiniteData(pageParam),
     getNextPageParam: (lastPage) => lastPage.nextPage
   })
+
+  useEffect(() => {
+    // Parse the searchParams to extract the searchValue and selectedFilters
+    const parsedSearchParams = new URLSearchParams(searchParams);
+    const parsedSelectedFilters: { value: string; name: string }[] = [];
+
+    setSearchValue(parsedSearchParams.get('q') || '');
+    setSelectedFilters(parsedSelectedFilters);
+
+    // Fetch data using the parsed search parameters
+    fetchNextPage({ pageParam: parsedSearchParams.toString() });
+  }, [searchParams, fetchNextPage]);
 
   return (
     <article className="article recipe-page">
@@ -171,7 +163,7 @@ const Filter: FC = (): ReactElement => {
 
             <button
               className="btn btn-primary label-large"
-              onClick={handleApplyFilters}
+              onClick={() => handleApplyFilters()}
             >Apply</button>
 
           </div>
@@ -210,12 +202,9 @@ const Filter: FC = (): ReactElement => {
             </>
           ) : (
               <>
-                {data?.pages
-                  .flatMap(data => data.recipe)
-                  .map((item) => (
-                    <Card key={item.recipe.uri} recipe={item.recipe} />
-                  ))
-                }
+                {data?.pages.flatMap((page) =>
+                  page.recipe.map((item) => <Card key={item.recipe.uri} recipe={item.recipe} />)
+                )}
               </>
             )
           }

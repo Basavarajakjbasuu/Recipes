@@ -13,6 +13,7 @@ import AccordionContainer from "./filter/AccordionContainer";
 import Accordions from "./filter/Accordions";
 import AccordionButton from "./filter/AccordionButton";
 import FilterChip from "./filter/FilterChip";
+import Details from "./Details/Details";
 
 export {
   Header,
@@ -29,7 +30,9 @@ export {
   AccordionContainer,
   Accordions,
   AccordionButton,
-  FilterChip
+  FilterChip,
+
+  Details
 }
 
 

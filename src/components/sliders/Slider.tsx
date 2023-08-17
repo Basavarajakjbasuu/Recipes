@@ -3,7 +3,6 @@ import { FC, ReactElement } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchData } from '../../api/fetchData';
 
-import { Recipe, RecipeCards } from '../../types';
 import { cardQueries } from '../../api/globals';
 
 import { Card } from '..';
@@ -26,7 +25,7 @@ const Slider: FC<SliderProps> = ({ title }): ReactElement => {
       try {
         const queryParameters = title ? [['cuisineType', title], ...cardQueries] : cardQueries;
         await wait(2000);
-        const responseData: Recipe | Recipe[] = await fetchData(queryParameters);
+        const responseData = await fetchData(queryParameters);
         return responseData;
       } catch (error) {
         throw new Error('Error fetching recipes.');
@@ -41,7 +40,7 @@ const Slider: FC<SliderProps> = ({ title }): ReactElement => {
   return (
     <div className="container">
 
-      <h2 className="section-title headline-small">Latest { title } Recipes</h2>
+      <h2 className="section-title headline-small">Latest <span className='span'>{ title }</span> Recipes</h2>
 
       <div className="slider">
 
@@ -61,7 +60,7 @@ const Slider: FC<SliderProps> = ({ title }): ReactElement => {
             <>
               {
                 Array.isArray(data) ?   
-                  data?.map((item: RecipeCards) => (
+                  data?.map((item) => (
                     <li className='slider-item'  key={item?.recipe?.uri}>
                       <Card
                       recipe={item?.recipe} 

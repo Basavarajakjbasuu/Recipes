@@ -1,13 +1,14 @@
 import { FC, ReactElement, useContext } from 'react';
-import Home from './pages/Home';
 
 import { ThemeContext } from './context/themeProvider';
 import { Footer, Header } from './components';
 
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 
+import Home from './pages/Home';
 import Recipes from './pages/Recipes';
 import Saved from './pages/Saved';
+import RecipeDetail from './pages/RecipeDetail'
 
 const Layout = () => (
   <div>
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: 'recipes',
         element: <Recipes />,
+      },
+      {
+        path: 'recipe/:recipeId',
+        element: <RecipeDetail />,
       },
       {
         path: 'saved',

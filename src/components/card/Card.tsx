@@ -10,12 +10,12 @@ import { getTime } from '../utils/utils';
 import img1 from '../../assets/image-placeholder.svg';
 
 interface ICardProps  {
-  recipe: ({
+  recipe: {
     image: string;
     label: string;
     totalTime: number;
     uri: string;
-  });
+  };
 }
 
 

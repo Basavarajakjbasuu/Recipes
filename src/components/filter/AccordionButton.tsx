@@ -17,8 +17,8 @@ const AccordionButton: FC<AccordionBtnProps> = ({icon, title, isExpanded, onClic
       onClick={onClick}
     >
       <span className="material-symbols-outlined">
-        {icon && createElement(icon)}
-      </span>
+        {icon && createElement(icon, { style: { fontSize: '20px' } })}
+      </span> 
 
       <p className="label-large">{ title }</p>
 

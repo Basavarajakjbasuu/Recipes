@@ -1,9 +1,27 @@
 import { FC, ReactElement, useState } from 'react';
 
-import { TimerOutlined, SpaOutlined, RestaurantOutlined, FastfoodOutlined, PublicOutlined } from '@mui/icons-material';
-import EmojiFoodBeverageOutlinedIcon from '@mui/icons-material/EmojiFoodBeverageOutlined';
-import FitnessCenterOutlinedIcon from '@mui/icons-material/FitnessCenterOutlined';
-import { CaloriesConstants, CuisineConstants, DietConstants, DishConstants, HealthConstants, IngredientsConstants, MealConstants, TimeConstants } from '../constants';
+import { 
+  TimerOutlined, 
+  SpaOutlined,
+  RestaurantOutlined, 
+  FastfoodOutlined, 
+  PublicOutlined, 
+  HealthAndSafetyOutlined, 
+  EmojiFoodBeverageOutlined, 
+  FitnessCenterOutlined
+} from '@mui/icons-material';
+
+import {
+  CaloriesConstants,
+  CuisineConstants,
+  DietConstants,
+  DishConstants,
+  HealthConstants,
+  IngredientsConstants,
+  MealConstants,
+  TimeConstants
+} from '../constants';
+
 import { AccordionContainer } from '..';
 
 interface AccordionsProps {
@@ -38,7 +56,7 @@ const Accordions: FC<AccordionsProps> = ({selectedFilters, onChange}): ReactElem
       />     
       
       <AccordionContainer
-        icon={EmojiFoodBeverageOutlinedIcon}
+        icon={EmojiFoodBeverageOutlined}
         title='Ingredient'
         filterChips={IngredientsConstants}
         isExpanded={expandedAccordion === 1}
@@ -48,7 +66,7 @@ const Accordions: FC<AccordionsProps> = ({selectedFilters, onChange}): ReactElem
       />   
       
       <AccordionContainer
-        icon={FitnessCenterOutlinedIcon}
+        icon={FitnessCenterOutlined}
         title='Calories'
         filterChips={CaloriesConstants}
         isExpanded={expandedAccordion === 2}
@@ -68,7 +86,7 @@ const Accordions: FC<AccordionsProps> = ({selectedFilters, onChange}): ReactElem
       /> 
 
       <AccordionContainer
-        icon={SpaOutlined}
+        icon={HealthAndSafetyOutlined}
         title='Health'
         filterChips={HealthConstants}
         isExpanded={expandedAccordion === 4}

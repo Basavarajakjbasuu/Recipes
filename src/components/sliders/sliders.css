@@ -1,3 +1,8 @@
+.container .span {
+  border-block-end: 2px solid var(--primary);
+  display: inline;
+}
+
 .slider {
   --gap: 8px;
 
