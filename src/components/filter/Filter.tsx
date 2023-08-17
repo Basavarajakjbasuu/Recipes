@@ -50,8 +50,11 @@ const Filter: FC = (): ReactElement => {
   // adding search functionality and filters also
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+    const newValue = event.target.value;
+    setSearchValue(newValue);
+
   }
+
 
   const handleFilterChange = (selectedFilters: { value: string, name: string }[]) => {
     setSelectedFilters(selectedFilters);
@@ -83,6 +86,9 @@ const Filter: FC = (): ReactElement => {
   const queryStr = searchParams.toString()?.slice(1);
   const numOfQueries = queryStr ? queryStr.split('&').map((i) => i.split('='))?.length : 0;
 
+  /**
+   * Infinity query with React Query
+   */
   const {
     fetchNextPage,
     isFetchingNextPage,

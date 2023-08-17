@@ -12,26 +12,34 @@ import { Link } from 'react-router-dom';
 
 const Header: FC = (): ReactElement => {
 
-  const { toggleTheme } = useContext(ThemeContext)
+  const { toggleTheme, isDarkTheme } = useContext(ThemeContext); 
+
+  console.log(isDarkTheme)
   return (
     <header className='header'>
 
       <Link to="/">
-        <img
-          src="/src/assets/logo-light.svg"
-          alt="logo-light"
-          width="200"
-          height="32"
-          className='logo-light'
-        />
+        {isDarkTheme ? (
 
-        <img 
-          src="/src/assets/logo-dark.svg" 
-          alt="logo-dark" 
-          width="200" 
-          height="32" 
-          className="logo-dark"
-        />
+          <img 
+            src="/src/assets/logo-dark.svg" 
+            alt="logo-dark" 
+            width="200" 
+            height="32" 
+            className="logo-dark"
+          />  
+         
+        ) : (
+            
+          <img
+            src="/src/assets/logo-light.svg"
+            alt="logo-light"
+            width="200"
+            height="32"
+            className='logo-light'
+          />
+          
+        )}
       </Link>
       
       {/* navbar */}
@@ -60,12 +68,17 @@ const Header: FC = (): ReactElement => {
         aria-label='Toggle light and dark theme'
         onClick={toggleTheme}
       >
-        <span className="light-icon">
-          <LightModeOutlinedIcon fontSize='large'/>
-        </span>
-        <span className="dark-icon">
-          <DarkModeOutlinedIcon fontSize='large'/>
-        </span>
+        {isDarkTheme ? (
+          <span className="light-icon">
+            <LightModeOutlinedIcon fontSize='large'/>
+          </span>
+        ) : (
+          <span className="dark-icon">
+            <DarkModeOutlinedIcon fontSize='large'/>
+          </span>
+        )}
+        
+       
 
       </button>
 

@@ -135,11 +135,6 @@
   margin-block-end: 16px;
 }
 
-.recipe-container .load-more {
-  min-width: 100%;
-  margin-block: 12px;
-}
-
 .btn-filter.active {
   position: fixed;
   bottom: calc(var(--mobile-nav-height) + 16px);
@@ -163,4 +158,8 @@
     transform: scale(1);
     opacity: 1;
   }
+}
+
+.recipe-container .load-more {
+  min-width: 100%;
 }
