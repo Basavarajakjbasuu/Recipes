@@ -25,7 +25,7 @@ const Details = () => {
   const saveRecipe = () => {
 
     if (!isSaved) {
-      window.localStorage.setItem(`Recipe${recipeId}`, JSON.stringify(recipeId));
+      window.localStorage.setItem(`Recipe${recipeId}`, JSON.stringify(data));
     } else {
       window.localStorage.removeItem(`Recipe${recipeId}`);
     }
@@ -111,8 +111,12 @@ const Details = () => {
             (<span className="bookmark-add"><BookmarkAddOutlined fontSize='large' /></span>)
           }    
             
-          <span className="label-large save-text">Save</span>
-          {/* <span className="label-large unsaved-text">UnSaved</span> */}
+          {isSaved ? 
+            (<span className="label-large save-text">Saved</span>)
+            :
+            (<span className="label-large unsaved-text">UnSaved</span>)  
+          } 
+          
           </button>
         </div>
 

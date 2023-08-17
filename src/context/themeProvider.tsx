@@ -29,12 +29,12 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }): ReactElement => {
   }
 
   useEffect(() => {
-    const storedTheme = sessionStorage.getItem('theme');
+    const storedTheme = localStorage.getItem('theme');
     setIsDarkTheme(storedTheme === 'dark' || storedTheme === null);
   }, []);
   
   useEffect(() => {
-    sessionStorage.setItem('theme', isDarkTheme ? 'light' : 'dark');
+    localStorage.setItem('theme', isDarkTheme ? 'light' : 'dark');
   }, [isDarkTheme]);
 
   return (

@@ -166,7 +166,7 @@ const Filter: FC = (): ReactElement => {
                 name='search'
                 id='search'
                 className='input-field'
-                placeholder='Search  recipes'
+                placeholder='Search recipes'
                 value={searchValue}
                 onChange={handleSearchChange}
               />

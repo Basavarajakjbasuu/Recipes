@@ -11,6 +11,11 @@
 
 .detail-content .btn-secondary { flex-shrink: 0; }
 
+.detail-author {
+  color: var(--on-background-variant);
+  margin-block: 16px;
+}
+
 .detail-author .span {
   display: inline;
   opacity: 0.8;
@@ -70,9 +75,6 @@
   width: 50%;
 }
 
-.detail-content-skelton .detail-author {
-  margin-block-start: 10px;
-}
 .detail-content-skelton .text-skeleton {
   height: 14px;
   width: 80%;

@@ -161,5 +161,6 @@
 }
 
 .recipe-container .load-more {
-  min-width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
 }

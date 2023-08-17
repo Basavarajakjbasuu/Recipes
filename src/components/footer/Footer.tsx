@@ -21,7 +21,7 @@ const Footer: FC = (): ReactElement => {
 
       <p className="copyright body-medium">Copyright {currentYear} Bassu </p>
 
-      <Link to="/">
+      <Link to="/" className='logo'>
         {isDarkTheme ? (
 
           <img 

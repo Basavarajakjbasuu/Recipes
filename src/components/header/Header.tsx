@@ -52,11 +52,11 @@ const Header: FC = (): ReactElement => {
         <ul className="navbar-list">
 
           <li>
-            <a href="" className='nav-bar-link title-small has-state'>Home</a>
+            <Link to="/" className='navbar-link title-small has-state active'>Home</Link>
           </li>
 
           <li>
-            <a href="" className='nav-bar-link title-small has-state'>Recipes</a>
+            <Link to="/recipes" className='navbar-link title-small has-state'>Recipes</Link>
           </li>
 
         </ul>

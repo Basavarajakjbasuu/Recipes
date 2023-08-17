@@ -1,4 +1,6 @@
-import { FC, ReactElement } from 'react'
+import { FC, ReactElement, useState } from 'react';
+
+import { useNavigate } from "react-router-dom";
 
 import './hero.css';
 
@@ -6,6 +8,28 @@ import SearchIcon from '@mui/icons-material/SearchOutlined';
 import  LocalDiningIcon  from '@mui/icons-material/LocalDiningOutlined';
 
 const Hero: FC = (): ReactElement => {
+  const [searchValue, setSearchValue] = useState<string>('');
+  const [error, setError] = useState<boolean>();
+
+  const navigate = useNavigate();
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.value;
+    setSearchValue(newValue);
+
+  }
+
+  const handleSearchBtn = () => {
+
+    if (searchValue.length === 0) {
+      setError(true)
+      return;
+    }
+
+    navigate(`/recipes?q=${searchValue.toLowerCase()}`)
+
+  }
+
   return (
     <article>
 
@@ -17,7 +41,7 @@ const Hero: FC = (): ReactElement => {
 
           <div className="search-wrapper">
 
-            <span className=" material-symbols-outlined leading-icon"><LocalDiningIcon fontSize='large' /></span>
+            <span className=" material-symbols-outlined leading-icon"><LocalDiningIcon fontSize='inherit' /></span>
 
             <input
               type="search"
@@ -25,16 +49,28 @@ const Hero: FC = (): ReactElement => {
               aria-label='Search recipes'
               placeholder='Search recipes'
               className='search-field body-medium has-value'
+              value={searchValue}
               autoComplete="off"
+              onChange={handleSearchChange}
             />
 
-            <button className="search-submit" aria-label='Submit'>
+            <button
+              className="search-submit"
+              aria-label='Submit'
+              onClick={handleSearchBtn}
+            >
 
               <span className='material-symbols-outlined'><SearchIcon fontSize='inherit' /></span>
 
             </button>
 
           </div>
+
+          {error && (
+            <p className="label-medium error">
+              Please search your favorite recipe. 
+            </p>
+          )}
 
           <p className="label-medium">
             Search any recipe e.g: burger, pizza, sandwich, toast.
