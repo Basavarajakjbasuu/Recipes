@@ -6,6 +6,10 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 
+import logoLight from '../../assets/logo-light.svg';
+import logoDark from '../../assets/logo-dark.svg';
+
+
 import { ThemeContext } from '../../context/themeProvider';
 
 import { Link } from 'react-router-dom';
@@ -14,7 +18,6 @@ const Header: FC = (): ReactElement => {
 
   const { toggleTheme, isDarkTheme } = useContext(ThemeContext); 
 
-  console.log(isDarkTheme)
   return (
     <header className='header'>
 
@@ -22,23 +25,23 @@ const Header: FC = (): ReactElement => {
         {isDarkTheme ? (
 
           <img 
-            src="/src/assets/logo-dark.svg" 
+            src={logoDark} 
             alt="logo-dark" 
             width="200" 
             height="32" 
             className="logo-dark"
-          />  
+          />
          
         ) : (
             
           <img
-            src="/src/assets/logo-light.svg"
+            src={logoLight}
             alt="logo-light"
             width="200"
             height="32"
             className='logo-light'
           />
-          
+            
         )}
       </Link>
       
