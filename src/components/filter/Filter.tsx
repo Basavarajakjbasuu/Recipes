@@ -13,6 +13,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const Filter: FC = (): ReactElement => {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
+  const [scrollActive, setScrollActive] = useState<boolean>(false);
 
   const [searchValue, setSearchValue] = useState<string>('');
   const [selectedFilters, setSelectedFilters] = useState<{ value: string, name: string }[]>([]);
@@ -106,6 +107,26 @@ const Filter: FC = (): ReactElement => {
     fetchNextPage({ pageParam: parsedSearchParams.toString() });
   }, [searchParams, fetchNextPage]);
 
+  // Filter btn to active when scrollY>120
+  useEffect(() => {
+
+    const handleScroll = () => {
+      if(window.scrollY >= 120) {
+        setScrollActive(true)
+      } else {
+        setScrollActive(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    // clean up function
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+  
   return (
     <article className="article recipe-page">
 
@@ -170,7 +191,7 @@ const Filter: FC = (): ReactElement => {
         </div>
       </div>
 
-      <div className="overlay" data-overlay data-filter-toggler></div>
+      <div className={`overlay ${isFilterOpen ? 'active' : ''}`}></div>
 
 
         <div className="recipe-container container">
@@ -179,8 +200,8 @@ const Filter: FC = (): ReactElement => {
             <h2 className="headline-small">All Recipes</h2>
 
             <button 
-              className="btn btn-secondary btn-filter has-state" 
-              aria-label="Open filter bar"
+              className={`btn btn-secondary btn-filter has-state ${scrollActive ? 'active' : ''} `} 
+                aria-label="Open filter bar"
               onClick={toggleFilter}
             >
                <span className="material-symbols-outlined"><FilterListOutlined fontSize='inherit' /></span>  
@@ -212,7 +233,7 @@ const Filter: FC = (): ReactElement => {
           </div>
         {hasNextPage && (
           <button 
-            className='btn btn-primary'
+            className='btn btn-primary label-large has-state load-more'
             onClick={() => fetchNextPage()}
           >
             {isFetchingNextPage ? 'Loading...' : 'Load more'}

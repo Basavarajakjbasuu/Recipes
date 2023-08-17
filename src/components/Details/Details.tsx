@@ -17,7 +17,7 @@ import RecipeDetailsSkeleton from '../skeleton/RecipeDetailsSkeleton';
 
 const Details = () => {
   const [isSaved, setIsSaved] = useState<boolean>(false);
-  const [recipeData, setRecipeData] = useState([])
+  // const [recipeData, setRecipeData] = useState([])
 
   const { recipeId } = useParams();
 
@@ -76,7 +76,7 @@ const Details = () => {
       dietLabels = [],
       dishType = [],
       yield: servings = 0,
-      uri
+      // uri
     } = data
 
   const banner = LARGE ?? REGULAR ?? THUMBNAIL ?? SMALL;
@@ -102,7 +102,7 @@ const Details = () => {
         <h1 className="display-small">{title ?? "UnTitled"}</h1>
 
           <button
-            className="btn btn-secondary has-state has-icon removed"
+            className="btn btn-secondary has-state has-icon"
             onClick={saveRecipe}
           >
           {isSaved ? 

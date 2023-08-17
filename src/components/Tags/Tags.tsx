@@ -19,7 +19,7 @@ const Tags: FC = (): ReactElement => {
 
       <div className="tag-list">
         {dietaryOptions.map((tag) => (
-          <Link to={`/recipes?health=${tag.href}`} className="badge-btn body-medium has-state"> 
+          <Link to={`/recipes?health=${tag.href}`} className="badge-btn body-medium has-state" key={tag.href}> 
             {tag.name}
           </Link>
         ))}

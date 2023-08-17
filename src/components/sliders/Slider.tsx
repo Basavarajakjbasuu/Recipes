@@ -50,8 +50,8 @@ const Slider: FC<SliderProps> = ({ title }): ReactElement => {
             <>
             {
               Array(12).fill(true).map((_, i) => (
-                <li className="slider-item">
-                  <SliderSkeleton key={i} />
+                <li className="slider-item" key={i}>
+                  <SliderSkeleton  />
                 </li>  
               ))
             }
