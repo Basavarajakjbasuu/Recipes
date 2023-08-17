@@ -49,7 +49,7 @@
    --dark-active-indicator: hsl(15, 25%, 22%);
    --dark-image-background: hsl(0, 0%, 30%);
    --dark-badge-btn: hsl(30, 28%, 13%);
-   --dark-on-badge-btn: hsl(30, 8%, 86%);
+   --dark-on-badge-btn: hsl(30, 8%, 86%);   
    --dark-outline: hsl(11, 3%, 20%);
    --dark-input-outline: hsl(11, 3%, 29%);
    --dark-input-outline-hover: hsl(0, 4%, 58%);
@@ -393,6 +393,20 @@ main { flex-grow: 1; }
   align-items: center;
 }
 
+.snackbar-container {
+  position: fixed;
+  bottom: calc(var(--mobile-nav-height) + 16px);
+  left: 16px;
+  right: 16px;
+  display: grid;
+  gap: 8;
+  z-index: 4;
+}
+
+
+
+
+
 /*-----------------------------------*\
   #COMPONENTS
 \*-----------------------------------*/
@@ -704,6 +718,42 @@ main { flex-grow: 1; }
 .badge.active {
   display: block;
 }
+
+/**
+ * Snackbar
+ */
+
+.snackbar {
+  height: 48px;
+  width: 100%;
+  background-color: initial;
+  background-color: hsl(11, 3%, 81%) !important;
+  color: var(--background) !important;
+  padding-inline: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: var(--radius-4);
+  box-shadow: var(--shadow-1);
+  animation: snackbar 3s var(--transition-timing-function) forwards;
+}
+
+@keyframes snackbar {
+  0%{
+    height: 0;
+    opacity: 0;
+  }
+  10%,
+  95% {
+    height: 48px;
+    opacity: 1;
+  }
+  100% { opacity: 0; }
+}
+
+
+
+
 
 
 

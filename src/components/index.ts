@@ -15,6 +15,8 @@ import AccordionButton from "./filter/AccordionButton";
 import FilterChip from "./filter/FilterChip";
 import Details from "./Details/Details";
 
+import Snackbar from "./ui/Snackbar";
+
 export {
   Header,
   MobileNav,
@@ -32,7 +34,9 @@ export {
   AccordionButton,
   FilterChip,
 
-  Details
+  Details,
+
+  Snackbar,
 }
 
 

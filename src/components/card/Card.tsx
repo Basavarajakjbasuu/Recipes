@@ -8,6 +8,7 @@ import { BookmarkAdd, BookmarkAddOutlined } from '@mui/icons-material';
 import { getTime } from '../utils/utils';
 
 import img1 from '../../assets/image-placeholder.svg';
+import { useSnackBar } from '../../context/SnackbarService';
 
 interface ICardProps  {
   recipe: {
@@ -20,7 +21,9 @@ interface ICardProps  {
 
 
 const Card: FC<ICardProps> = ({ recipe }): ReactElement => {
-  const [isSaved, setIsSaved] = useState<boolean>(false)
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+
+  const snackbar = useSnackBar();
 
   const { image, label, totalTime:cookingTime, uri } = recipe;
 
@@ -34,13 +37,15 @@ const Card: FC<ICardProps> = ({ recipe }): ReactElement => {
   }, [recipeId])
   
 
-  //saved recipe to local storage
+  //save recipe to local storage
   const saveRecipe = () => {
 
     if (!isSaved) {
       window.localStorage.setItem(`Recipe${recipeId}`, JSON.stringify(recipe));
+      snackbar.showSnackbarMessage("Added to Recipe Book.")
     } else {
       window.localStorage.removeItem(`Recipe${recipeId}`);
+      snackbar.showSnackbarMessage("Removed from Recipe Book.")
     }
 
     setIsSaved((prevState) => !prevState)
@@ -86,7 +91,6 @@ const Card: FC<ICardProps> = ({ recipe }): ReactElement => {
         </button>
           
       </div>
-
 
       </div>
 

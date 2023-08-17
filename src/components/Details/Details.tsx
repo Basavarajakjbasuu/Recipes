@@ -13,6 +13,7 @@ import { getTime } from '../utils/utils';
 import Tags from '../ui/Tags';
 import Ingredients from '../ui/Ingredients';
 import RecipeDetailsSkeleton from '../skeleton/RecipeDetailsSkeleton';
+import { useSnackBar } from '../../context/SnackbarService';
 
 
 const Details = () => {
@@ -21,13 +22,17 @@ const Details = () => {
 
   const { recipeId } = useParams();
 
+  const snackbar = useSnackBar();
+
   //saved recipe to local storage
   const saveRecipe = () => {
 
     if (!isSaved) {
       window.localStorage.setItem(`Recipe${recipeId}`, JSON.stringify(data));
+      snackbar.showSnackbarMessage("Added to Recipe Book.");
     } else {
       window.localStorage.removeItem(`Recipe${recipeId}`);
+      snackbar.showSnackbarMessage("Removed from Recipe Book.");
     }
 
     setIsSaved((prevState) => !prevState)

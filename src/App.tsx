@@ -11,11 +11,11 @@ import Saved from './pages/Saved';
 import RecipeDetail from './pages/RecipeDetail'
 
 const Layout = () => (
-  <div>
+  <>
     <Header />
       <Outlet />
     <Footer />
-  </div>
+  </>
 ) 
 
 const router = createBrowserRouter([
