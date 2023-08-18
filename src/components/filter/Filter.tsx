@@ -2,59 +2,41 @@ import { CloseOutlined, FilterListOutlined } from '@mui/icons-material';
 
 import './Filter.css';
 
-import { FC, ReactElement, useRef,useEffect, useState } from 'react'
+import { FC, ReactElement, useEffect, useState } from 'react'
 import { Accordions, Card } from '..'
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { fetchInfiniteData } from '../../api/fetchData';
+import { useSearchParams } from 'react-router-dom';
 
 import CardSkeleton from '../skeleton/CardSkeleton';
-import { useSearchParams } from 'react-router-dom';
+
+import useClickOutside from '../../hooks/useClickoutside';
+import useScrollActive from '../../hooks/useScrollActive';
 
 const Filter: FC = (): ReactElement => {
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
-  const [scrollActive, setScrollActive] = useState<boolean>(false);
-
   const [searchValue, setSearchValue] = useState<string>('');
   const [selectedFilters, setSelectedFilters] = useState<{ value: string, name: string }[]>([]);
 
-
   const [searchParams, setSearchParams] = useSearchParams();
 
-
   //Toggle filter in mobile and tablet devices
-  const filterRef = useRef<HTMLDivElement>(null);
+  const filterRef = useClickOutside(() => setIsFilterOpen(false));
+  // Filter btn to active when scrollY>120
+  const scrollActive = useScrollActive();
 
   const toggleFilter = () => {
     setIsFilterOpen((prev) => !prev);
   }
 
-  const handleClickOutside = (event: MouseEvent) => {
-    if (filterRef.current && !filterRef.current.contains(event.target as Node)) {
-      setIsFilterOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isFilterOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isFilterOpen]);
 
   // adding search functionality and filters also
-
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setSearchValue(newValue);
 
   }
-
 
   const handleFilterChange = (selectedFilters: { value: string, name: string }[]) => {
     setSelectedFilters(selectedFilters);
@@ -113,25 +95,6 @@ const Filter: FC = (): ReactElement => {
     fetchNextPage({ pageParam: parsedSearchParams.toString() });
   }, [searchParams, fetchNextPage]);
 
-  // Filter btn to active when scrollY>120
-  useEffect(() => {
-
-    const handleScroll = () => {
-      if(window.scrollY >= 120) {
-        setScrollActive(true)
-      } else {
-        setScrollActive(false)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-
-    // clean up function
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
   
   return (
     <article className="article recipe-page">

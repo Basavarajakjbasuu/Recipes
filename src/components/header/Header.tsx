@@ -12,7 +12,7 @@ import logoDark from '../../assets/logo-dark.svg';
 
 import { ThemeContext } from '../../context/themeProvider';
 
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Header: FC = (): ReactElement => {
 
@@ -52,11 +52,20 @@ const Header: FC = (): ReactElement => {
         <ul className="navbar-list">
 
           <li>
-            <Link to="/" className='navbar-link title-small has-state active'>Home</Link>
+            <NavLink
+              to="/"
+              className='navbar-link title-small has-state'
+            >
+              Home
+              <div className="underline"></div>
+            </NavLink>
           </li>
 
           <li>
-            <Link to="/recipes" className='navbar-link title-small has-state'>Recipes</Link>
+            <NavLink to="/recipes" className='navbar-link title-small has-state'>
+              Recipes
+              <div className="underline"></div>
+            </NavLink>
           </li>
 
         </ul>
@@ -86,10 +95,10 @@ const Header: FC = (): ReactElement => {
       </button>
 
       {/* bookmark */}
-      <a href="" className='btn btn-primary has-state'>
+      <Link to={'saved'} className='btn btn-primary has-state'>
         <BookOutlinedIcon fontSize='large'/>
         <span className="span">Saved Recipes</span>
-      </a>
+      </Link>
 
     </header>
   )
