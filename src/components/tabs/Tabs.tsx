@@ -43,7 +43,7 @@ const Tabs: FC = (): ReactElement => {
     refetch()
   }, [activeTab, refetch]);
 
-  const foodItems = Array.isArray(data) ? data.slice(0, 12) : [data];
+  const foodItems = Array.isArray(data) ? data.slice(0, 10) : [data];
   return (
     <section className="section tab">
 

@@ -1,6 +1,6 @@
-.container .span {
-  border-block-end: 2px solid var(--primary);
-  display: inline;
+.container .span{
+  display: inline-block;
+  border-block-end: 2px solid var(--primary);  
 }
 
 .slider {
